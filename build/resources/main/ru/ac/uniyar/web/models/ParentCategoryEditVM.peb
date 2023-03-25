@@ -1,0 +1,15 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Изменение родительской категории
+{% endblock %}
+
+{% block content %}
+    {% include "./errorList.peb" %}
+
+    <form method="POST">
+         <p>Новая родительская категория: </p>
+         <input type="text" name="parentCategoryName" value="{{ model.parentCategoryName }}">
+         <input type="submit" value="Отправить">
+    </form>
+{% endblock %}

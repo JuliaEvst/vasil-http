@@ -1,0 +1,12 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Ошибка
+{% endblock %}
+
+{% block content %}
+    <div class="callout">
+        <h3 class="text-center">Произошла ошибка в запросе или данный раздел Вам недоступен.</h3>
+        <p class="text-center">Пожалуйста, проверьте данные и повторите попытку.</p>
+    </div>
+{% endblock %}

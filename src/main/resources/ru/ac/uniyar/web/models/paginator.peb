@@ -1,0 +1,13 @@
+<nav>
+    <ul class="pagination text-center">
+        {% if model.lastPage != 1 %}
+            {% for currentPage in 1..model.lastPage %}
+                {% if model.page == currentPage %}
+                    <li class="current"><a href="{{ model.path }}?page={{ currentPage }}{{ model.categoryFilter }}{{ model.parentCategoryFilter }}{{ model.sortFilter }}" aria-label="Page {{ currentPage }}">{{ currentPage }}</a></li>
+                {% else %}
+                    <li><a href="{{ model.path }}?page={{ currentPage }}{{ model.categoryFilter }}{{ model.parentCategoryFilter }}{{ model.sortFilter }}" aria-label="Page {{ currentPage }}">{{currentPage }}</a></li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </ul>
+</nav>

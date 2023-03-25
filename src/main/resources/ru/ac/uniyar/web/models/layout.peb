@@ -1,0 +1,55 @@
+<!doctype html>
+<html class="no-js" lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Нет заголовка{% endblock %}</title>
+    <link rel="stylesheet" href="/css/foundation.css">
+    <link rel="stylesheet" href="/css/app.css">
+  </head>
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <ul class="menu">
+                <li class="menu-text">Продуктовый магазин</li>
+                <li><a href="/">Стартовая страница</a></li>
+                <li><a href="/parent_category">Родительские категории</a><li>
+                <li><a href="/category">Список категорий</a></li>
+                <li><a href="/product">Список товаров</a></li>
+                {% if permission.canSeeProducer %}
+                    <li><a href="/producer">Производители</a></li>
+                {% endif %}
+                {% if permission.canSeeCart %}
+                    <li><a href="/shopping_cart">Корзина</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="top-bar-right">
+            <ul class="menu">
+                {% if currentUser is not null %}
+                    <li>{{ currentUser.name }}</li>
+                    <li><a href="/logout">Выйти</a></li>
+                {% else %}
+                    <li><a href="/login">Войти</a></li>
+                    <li><a href="/signup">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <p></p>
+
+<div class="grid-container">
+
+{% block content %}
+    Нет содержимого
+{% endblock %}
+
+</div>
+    <script src="/js/vendor/jquery.js"></script>
+    <script src="/js/vendor/what-input.js"></script>
+    <script src="/js/vendor/foundation.js"></script>
+    <script src="/js/app.js"></script>
+  </body>
+</html>

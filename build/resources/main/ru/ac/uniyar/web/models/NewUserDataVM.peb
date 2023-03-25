@@ -1,0 +1,29 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Добавление пользователя
+{% endblock %}
+
+{% block content %}
+    {% include "./errorList.peb" %}
+
+    <form id="data" method="POST">
+        <div class="medium-6 cell">
+            <p>ФИО пользователя: </p>
+            <input type="text" name="name" value="{{ model.form.fields["name"] | first }}">
+        </div>
+        <div class="medium-6 cell">
+            <p>Адрес пользователя: </p>
+            <input type="text" name="address" value="{{ model.form.fields["address"] | first }}">
+        </div>
+        <div class="medium-6 cell">
+            <p>Пароль: </p>
+            <input type="password" name="password" value="{{ model.form.fields["password"] | first }}">
+        </div>
+        <div class="medium-6 cell">
+            <p>Повторите пароль: </p>
+            <input type="password" name="passwordTwo" value="{{ model.form.fields["passwordTwo"] | first }}">
+        </div>
+        <input type="submit" value="Отправить">
+    </form>
+{% endblock %}

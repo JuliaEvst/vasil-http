@@ -1,0 +1,52 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Список родительских категорий
+{% endblock %}
+
+{% block content %}
+    {% if model.parentCategory is not empty %}
+        <h4>Список родительских категорий</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Название родительской категории</th>
+                    <th width="200">Количество товаров</th>
+                    {% if permission.canEditCategories %}
+                        <th width="200">Удаление категории</th>
+                        <th width="200">Изменение категории</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in model.parentCategory %}
+                    <tr>
+                        <td><a href="/category?parent={{ category.category }}">{{ category.category }}</a></td>
+                        <td>{{ category.countProducts }}</td>
+                        {% if permission.canEditCategories %}
+                            <td>
+                                {% if category.countProducts == 0 %}
+                                    <a href="/parent_category/{{ category.category }}/delete">Удалить категорию</a>
+                                {% else %}
+                                    <p>Удаление невозможно</p>
+                                {% endif %}
+                            </td>
+                            <td><a href="/parent_category/{{ category.category }}/edit">Изменить категорию</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        <table>
+    {% else %}
+        <div class="callout">
+            <h4 class="text-center">Родительские категории отсутствуют.</h4>
+            <h4 class="text-center">Пожалуйста, подождите их появления!</h4>
+        </div>
+    {% endif %}
+
+    {% if permission.canEditCategories %}
+        <a class="button" href="/parent_category/new">Добавить новую родительскую категорию</a>
+    {% endif %}
+
+    {% extends "./paginator.peb" %}
+{% endblock %}

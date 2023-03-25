@@ -1,0 +1,55 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Категории
+{% endblock %}
+
+{% block content %}
+    {% if model.categories is not empty %}
+        <h4>Список категорий</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Название категории</th>
+                    <th width="200">Количество товаров</th>
+                    {% if permission.canEditCategories %}
+                        <th width="200">Удаление категории</th>
+                        <th width="200">Изменение категории</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in model.categories %}
+                    <tr>
+                        <td><a href="/product?category={{ category.category }}">{{ category.category }}</a></td>
+                        <td>{{ category.countProducts }}</td>
+                        {% if permission.canEditCategories %}
+                            <td>
+                                {% if category.countProducts == 0 %}
+                                    <a href="/category/{{ category.category }}/delete">Удалить категорию</a>
+                                {% else %}
+                                    <p>Удаление невозможно</p>
+                                {% endif %}
+                            </td>
+                            <td><a href="/category/{{ category.category }}/edit">Изменить категорию</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        <table>
+    {% else %}
+        <div class="callout">
+            <h4 class="text-center">У данной родительской категории нет дочерних категорий.</h4>
+            <h4 class="text-center">Пожалуйста, подождите их появления!</h4>
+        </div>
+    {% endif %}
+
+    <div class="small-2">
+        {% if permission.canEditCategories %}
+            <a class="button" href="/category/new">Добавить новую категорию</a>
+        {% endif %}
+        <a class="button" href="/parent_category">Вернуться к родительским категориям</a>
+    </div>
+
+    {% extends "./paginator.peb" %}
+{% endblock %}

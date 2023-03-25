@@ -1,0 +1,20 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Добавление родительской категории
+{% endblock %}
+
+{% block content %}
+    {% include "./errorList.peb" %}
+
+    <form method="POST">
+         <p>Родительская категория: </p>
+         <input type="text" name="parentCategoryName" value="{{ model.form.fields["parentCategoryName"] | first }}">
+         <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="small-2 cell"><input class="button" type="submit" value="Отправить"></div>
+                <div class="small-1 cell"><a class="button alert" href="/parent_category">Отменить</a></div>
+            </div>
+         </div>
+    </form>
+{% endblock %}

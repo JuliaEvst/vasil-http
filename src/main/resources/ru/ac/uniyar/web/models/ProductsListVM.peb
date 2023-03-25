@@ -1,0 +1,42 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Список продуктов
+{% endblock %}
+
+{% block content %}
+    {% if permission.canAddNewProduct %}
+        <a class="button rounded bordered shadow success" href="/product/new">Добавить новый продукт</a>
+    {% endif %}
+
+    {% if model.products is not empty %}
+        <div class="cell small-9">
+            <a class="button" href="{{ model.path }}?page=1{{ model.categoryFilter }}&sort=time">Сортировать по времени</a>
+            <a class="button" href="{{ model.path }}?page=1{{ model.categoryFilter }}&sort=name">Сортировать по имени</a>
+        </div>
+        {% for product in model.products %}
+            <div class="callout">
+                <h4>{{product.name}}</h4>
+                <li>Категория: {{product.category}}</li>
+                <li>Цена: {{product.price}} Р</li>
+                <li>Количество: {{product.count}} шт.</li>
+                <a href="/product/{{product.productId}}">Подробнее</h4></a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="callout">
+            <h4 class="text-center">Продукты с данной категорией отсутствуют.</h4>
+            <h4 class="text-center">Пожалуйста, подождите их появления!</h4>
+        </div>
+    {% endif %}
+    <div class="cell small-9">
+        <a class="button" href="/parent_category">Вернуться к родительским категориям</a>
+        {% if model.parentCategoryFilter is not null %}
+            <a class="button" href="/category?parent={{ model.parentCategoryFilter }}">Вернуться к списку категорий</a>
+        {% else %}
+            <a class="button" href="/category">Вернуться к списку категорий</a>
+        {% endif %}
+    </div>
+
+    {% extends "./paginator.peb" %}
+{% endblock %}

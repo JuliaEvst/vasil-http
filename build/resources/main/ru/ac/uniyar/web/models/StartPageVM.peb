@@ -1,0 +1,32 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Продуктовый магазин
+{% endblock %}
+
+{% block content %}
+    <div class="callout">
+        <h3 class="text-center">Продуктовый магазин</h3>
+        <p class="text-center">Данный сайт реализует продуктовый магазин.</p>
+        <p class="text-center">Можно добавлять новые товары, смотреть имеющиеся, добавлять их в корзину.</p>
+        <p class="text-center">Помимо этого, можно добавлять новых производителей.</p>
+    </div>
+
+    <h3>Список категорий в иерархическом виде:</h3>
+    <div class="callout">
+        {% if model.categories is not empty %}
+            {% for categoryMap in model.categories %}
+                <p><a href="/category?parent={{ categoryMap.key.category }}">{{ categoryMap.key.category }}</a>:</p>
+                {% for category in categoryMap.value %}
+                    <li><a href="/product?category={{ category.category }}">{{ category.category }}</a>, Количество товаров: {{ category.countProducts }}</li>
+                {% endfor %}
+                <p></p>
+            {% endfor %}
+        {% else %}
+            <h4 class="text-center">Список категорий пуст!</h4>
+        {% endif %}
+
+    </div>
+
+    <p>Автор: Куликов Вадим, ИТ-31</p>
+{% endblock %}

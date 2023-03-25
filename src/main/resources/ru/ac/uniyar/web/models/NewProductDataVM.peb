@@ -1,0 +1,43 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Добавление продукта
+{% endblock %}
+
+{% block content %}
+    {% include "./errorList.peb" %}
+
+    <form id="data" method="POST">
+         <p>Категория: </p>
+         <select name="category" form="data">
+            {% for category in model.listCategory %}
+                {% if category.category == model.form.fields["category"] | first %}
+                    <option selected value="{{ category.category }}">{{ category.category }}</option>
+                {% else %}
+                    <option value="{{ category.category }}">{{ category.category }}</option>
+                {% endif %}
+            {% endfor %}
+         </select>
+         <p>Имя: <input type="text" name="name" value="{{ model.form.fields["name"] | first }}"></p>
+         <p>Цена: <input type="number" name="price" min="0" value="{{ model.form.fields["price"] | first }}"></p>
+         <p>Количество: <input type="number" name="count" min="0" value="{{ model.form.fields["count"] | first }}"></p>
+         <p>Производитель: </p>
+         <select name="producer" form="data">
+            {% for producer in model.listProducer %}
+                {% if producer.producerName == model.form.fields["producer"] | first %}
+                    <option selected value="{{ producer.producerName }}">{{ producer.producerName }}</option>
+                {% else %}
+                    <option value="{{ producer.producerName }}">{{ producer.producerName }}</option>
+                {% endif %}
+            {% endfor %}
+         </select>
+         <p>Страна производства: <input type="text" name="country" value="{{ model.form.fields["country"] | first }}"></p>
+         <p>Описание: <textarea name="description">{{ model.form.fields["description"] | first }}</textarea></p>
+         <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="small-2 cell"><input class="button" type="submit" value="Отправить"></div>
+                <div class="small-1 cell"><a class="button alert" href="/product">Отменить</a></div>
+            </div>
+         </div>
+    </form>
+{% endblock %}

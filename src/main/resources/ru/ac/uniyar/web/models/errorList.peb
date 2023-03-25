@@ -1,0 +1,14 @@
+{% if model.form.errors is not empty %}
+    <div class="warning">
+        <p>Обнаружены ошибки:</p>
+        <ul>
+        {% for error in model.form.errors %}
+            {% if error.meta.description is not empty %}
+                    <li>{{ error.meta.description }}</li>
+                {% else %}
+                    <li>{{ error }}</li>
+                {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+{% endif %}

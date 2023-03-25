@@ -1,0 +1,25 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Изменение категории
+{% endblock %}
+
+{% block content %}
+    {% include "./errorList.peb" %}
+
+    <form method="POST">
+         <p>Новая родительская категория: </p>
+         <select name="parentCategoryName">
+            {% for parentCategory in model.listParentCategory %}
+                {% if parentCategory.category == model.category.categoryParent %}
+                    <option selected value="{{ parentCategory.category }}">{{ parentCategory.category }}</option>
+                {% else %}
+                    <option value="{{ parentCategory.category }}">{{ parentCategory.category }}</option>
+                {% endif %}
+            {% endfor %}
+         </select>
+         <p>Новая категория: </p>
+         <input type="text" name="categoryName" value="{{ model.category.category }}">
+         <input type="submit" value="Отправить">
+    </form>
+{% endblock %}

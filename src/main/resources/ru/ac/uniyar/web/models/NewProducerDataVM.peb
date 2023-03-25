@@ -1,0 +1,19 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Добавление производителя
+{% endblock %}
+
+{% block content %}
+    {% include "./errorList.peb" %}
+
+    <form method="POST">
+         <p>Название: <input type="text" name="producerName" value="{{ model.form.fields["producerName"] | first }}"></p>
+         <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="small-2 cell"><input class="button" type="submit" value="Отправить"></div>
+                <div class="small-1 cell"><a class="button alert" href="/producer">Отменить</a></div>
+            </div>
+         </div>
+    </form>
+{% endblock %}

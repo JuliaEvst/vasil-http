@@ -1,0 +1,30 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Изменение продукта
+{% endblock %}
+
+{% block content %}
+    {% include "./errorList.peb" %}
+
+    <form method="POST">
+        <p>Новая цена продукта: </p>
+        {% if (model.form.fields["price"] | first) is empty %}
+            <input type="number" name="price" min="0" value="{{ model.product.price }}">
+        {% else %}
+            <input type="number" name="price" min="0" value="{{ model.form.fields["price"] | first }}">
+        {% endif %}
+        <p>Новое количество товара: </p>
+        {% if model.form.fields["count"] | first is empty %}
+            <input type="number" name="count" min="0" value="{{ model.product.count }}">
+        {% else %}
+            <input type="number" name="count" min="0" value="{{ model.form.fields["count"] | first }}">
+        {% endif %}
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="small-2 cell"><input class="button" type="submit" value="Отправить"></div>
+                <div class="small-1 cell"><a class="button alert" href="/product/{{ model.product.productId }}">Отменить</a></div>
+            </div>
+         </div>
+    </form>
+{% endblock %}

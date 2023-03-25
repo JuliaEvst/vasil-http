@@ -1,0 +1,59 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Информация о продукте
+{% endblock %}
+
+{% block content %}
+    {% include "./errorList.peb" %}
+
+    <div class="grid-x">
+        <a href="/category?parent={{ model.parentCategory }}">{{ model.parentCategory }}</a>
+        <p>ㅤ/ㅤ</p>
+        <a href="/product?category={{ model.category }}">{{ model.category }}</a>
+    </div>
+
+    <h3>{{ model.name }}</h3>
+    <li>Время: {{ model.time }}</li>
+    <li>Категория: {{ model.category }}</li>
+    <li>Цена: {{ model.price }} Р</li>
+    <li>Количество: {{ model.count }} шт.</li>
+    <li>Производитель: {{ model.producer }}</li>
+    <li>Страна производства: {{ model.country }}</li>
+    <li>Описание:</li>
+    <pre>{{ model.description }}</pre>
+    <br>
+
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+            <div class="small-3 cell"><a class="button" href="/product">Вернуться к списку всех товаров</a></div>
+            {% if permission.canEditProduct %}
+                <div class="small-2 cell">
+                    <a class="success button" href="/product/{{ model.id }}/edit">Изменить цену и количество</a>
+                </div>
+            {% endif %}
+            {% if permission.canDeleteProduct %}
+                <div class="small-3 cell">
+                    <a class="alert button" href="/product/{{ model.id }}/delete">Удалить товар</a>
+                </div>
+            {% endif %}
+            {% if permission.canAddProductInCart %}
+                <div class="small-3 cell">
+                    <form method="POST">
+                        <div class="grid-container">
+                            <div class="grid-x grid-padding-x">
+                                <div class="small-6 cell"><input type="number" name="count" min=1 max={{ model.count }} value=1></div>
+                                <div class="small-3 cell"><input type="submit" class="button" value="Добавить товар в корзину"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

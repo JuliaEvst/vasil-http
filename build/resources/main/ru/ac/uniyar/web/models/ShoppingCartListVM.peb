@@ -1,0 +1,50 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Корзина
+{% endblock %}
+
+{% block content %}
+    {% include "./errorList.peb" %}
+
+    {% if model.infoList is not empty %}
+        <div class="callout">
+            <ul>
+                {% for info in model.infoList %}
+                    <li>{{ info.description }}</li>
+                {% endfor %}
+            </ul>
+            <a class="success button" href="/shopping_cart/clearInfo">Принять</a>
+        </div>
+    {% endif %}
+
+    {% if model.shoppingCartProducts is not empty %}
+        {% for product in model.shoppingCartProducts %}
+            <div class="callout">
+                <h5 class="text-center">{{ product.productName }}</h5>
+                <p>ID пользователя: {{ product.userId }}</p>
+                <p>Время добавления: {{ product.time }}</p>
+                <p>Количество в корзине: {{ product.productCount }} шт.</p>
+                <p>Цена за одну штуку: {{ product.productPrice }} Р</p>
+                <p>Цена за все: {{ product.productPrice * product.productCount }} Р</p>
+                <p><a href="/product/{{ product.productId }}">Подробнее о товаре</a></p>
+                <form method="POST">
+                    <input type="hidden" name="id" value={{ product.id }}>
+                    <input type="submit" class="button" value="Удалить товар из корзины">
+                </form>
+            </div>
+        {% endfor %}
+        {% if model.infoList is empty %}
+            <a class="success button" href="/shopping_cart/order">Оформить заказ</a>
+        {% else %}
+            <a class="alert button">Прочитайте сообщения выше и нажмите кнопку "Принять", чтобы оформить заказ</a>
+        {% endif %}
+    {% else %}
+        <div class="callout">
+            <h4 class="text-center">Корзина пуста.</h4>
+            <h4 class="text-center">Добавьте сюда что-нибудь.</h4>
+        </div>
+    {% endif %}
+
+    {% extends "./paginator.peb" %}
+{% endblock %}

@@ -1,0 +1,27 @@
+    {% extends "./layout.peb" %}
+
+{% block title %}
+Список производителей
+{% endblock %}
+
+{% block content %}
+
+    <a class="button rounded bordered shadow success" href="/producer/new">Добавить нового производителя</a>
+
+    {% if model.producerList is not empty %}
+        {% for producer in model.producerList %}
+            <div class="callout">
+                <h4>{{producer.producerName}}</h4>
+                <p>Дата добавления: {{ producer.time }}</p>
+            </div>
+        {% endfor %}
+        {% else %}
+        <div class="callout">
+            <h4 class="text-center">Производители отсутствуют.</h4>
+            <h4 class="text-center">Пожалуйста, подождите их появления или станьте сами!</h4>
+        </div>
+    {% endif %}
+
+    {% extends "./paginator.peb" %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "./layout.peb" %}
+
+{% block title %}
+Оформление заказа
+{% endblock %}
+
+{% block content %}
+    {% include "./errorList.peb" %}
+
+    <form method="POST">
+         <p>Адрес доставки: </p>
+         <input type="text" name="address" value="{{ model.currentUser.address }}">
+         <input type="submit" class="success button" value="Подтвердить">
+    </form>
+{% endblock %}
